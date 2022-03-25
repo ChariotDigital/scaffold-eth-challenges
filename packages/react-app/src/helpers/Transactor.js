@@ -15,6 +15,7 @@ export default function Transactor(providerOrSigner, gasPrice, etherscan) {
   if (typeof providerOrSigner !== "undefined") {
     // eslint-disable-next-line consistent-return
     return async (tx, callback) => {
+      console.log("Initial TX: ", tx);
       let signer;
       let network;
       let provider;
@@ -66,6 +67,7 @@ export default function Transactor(providerOrSigner, gasPrice, etherscan) {
           if (DEBUG) console.log("AWAITING TX", tx);
           result = await tx;
         } else {
+          console.log("THIS IS THE TX: ", tx);
           if (!tx.gasPrice) {
             tx.gasPrice = gasPrice || ethers.utils.parseUnits("4.1", "gwei");
           }
