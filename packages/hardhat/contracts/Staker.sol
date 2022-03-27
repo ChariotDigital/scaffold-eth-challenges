@@ -16,7 +16,7 @@ contract Staker {
     if( requireReached ) {
       require(timeRemaining == 0, "Deadline is not reached yet");
     } else {
-      // require(timeRemaining > 0, "Deadline is already reached");
+      require(timeRemaining > 0, "Deadline is already reached");
     }
     _;
   }
@@ -38,7 +38,7 @@ contract Staker {
 
   function stake() public payable deadlineReached(false) stakeNotCompleted   returns (bool) {
     uint256 start = block.timestamp;
-    deadline = block.timestamp + 1 minutes;
+    deadline = deadline + 1 minutes;
 
 
     balances[msg.sender] = msg.value;
@@ -54,9 +54,15 @@ contract Staker {
   }
 
   function execute() public stakeNotCompleted deadlineReached(true)  {
-    if (address(this).balance >= threshold) {
-      address(exampleExternalContract).call{value: address(this).balance}(abi.encodeWithSignature("complete()"));
-    }
+    uint256 contractBalance = address(this).balance;
+
+    // check the contract has enough ETH to reach the treshold
+    require(contractBalance >= threshold, "Threshold not reached");
+
+    // Execute the external contract, transfer all the balance to the contract
+    // (bool sent, bytes memory data) = exampleExternalContract.complete{value: contractBalance}();
+    (bool sent,) = address(exampleExternalContract).call{value: contractBalance}(abi.encodeWithSignature("complete()"));
+    require(sent, "exampleExternalContract.complete failed");
   } 
 
   function contractAmt() public returns (uint256) {

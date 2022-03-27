@@ -240,6 +240,10 @@ function App(props) {
     console.log(`⛓ A new mainnet block is here: ${mainnetProvider._lastBlockNumber}`);
   });
 
+  useOnBlock(localProvider, () => {
+    console.log(`⛓ A new local net block is here: ${mainnetProvider._lastBlockNumber}`);
+  });
+
   // Then read your DAI balance like:
   const myMainnetDAIBalance = useContractReader(mainnetContracts, "DAI", "balanceOf", [
     "0x34aA3F359A9D614239015126635CE7732c18fDF3",
@@ -268,6 +272,7 @@ function App(props) {
 
   // ** keep track of a variable from the contract in the local React state:
   const timeLeft = useContractReader(readContracts, "Staker", "timeLeft");
+  const deadline = useContractReader(readContracts, "Staker", "deadline");
   console.log("⏳ timeLeft:", timeLeft);
 
   // ** Listen for when the contract has been 'completed'
@@ -520,6 +525,8 @@ function App(props) {
 
             <div style={{ padding: 8, marginTop: 32 }}>
               <div>Timeleft:</div>
+              {timeLeft && humanizeDuration(timeLeft.toNumber() * 1000)}
+              <div>dealine:</div>
               {timeLeft && humanizeDuration(timeLeft.toNumber() * 1000)}
             </div>
 
