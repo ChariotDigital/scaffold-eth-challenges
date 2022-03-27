@@ -250,6 +250,8 @@ function App(props) {
     localProvider,
     readContracts && readContracts.Staker ? readContracts.Staker.address : null,
   );
+
+  
   if (DEBUG) console.log("💵 stakerContractBalance", stakerContractBalance);
 
   // ** keep track of total 'threshold' needed of ETH
@@ -557,12 +559,23 @@ function App(props) {
               <Button
                 type={balanceStaked ? "success" : "primary"}
                 onClick={() => {
-                  tx(writeContracts.Staker.stake({ value: ethers.utils.parseEther("0.5") }));
+                  tx(writeContracts.Staker.stake({value: ethers.utils.parseEther('0.5')}));
                 }}
               >
                 🥩 Stake 0.5 ether!
               </Button>
+              
             </div>
+            <div style={{ padding: 8 }}>
+              <Button
+                type={balanceStaked ? "success" : "primary"}
+                onClick={() => { console.log("WRITEY WRTIE: ", writeContracts)
+                console.log("CONTRACT BALANCE: ", stakerContractBalance);
+              } }
+              >
+                log staker
+              </Button>
+              </div>
 
             {/*
                 🎛 this scaffolding is full of commonly used components
