@@ -271,7 +271,7 @@ function App(props) {
   console.log("📟 stake events:", stakeEvents);
 
   // ** keep track of a variable from the contract in the local React state:
-  const timeLeft = useContractReader(readContracts, "Staker", "timeLeft");
+  const timeLeft = useContractReader(readContracts, "Staker", "timeLeft()");
   const deadline = useContractReader(readContracts, "Staker", "deadline");
   console.log("⏳ timeLeft:", timeLeft);
 
@@ -525,8 +525,6 @@ function App(props) {
 
             <div style={{ padding: 8, marginTop: 32 }}>
               <div>Timeleft:</div>
-              {timeLeft && humanizeDuration(timeLeft.toNumber() * 1000)}
-              <div>dealine:</div>
               {timeLeft && humanizeDuration(timeLeft.toNumber() * 1000)}
             </div>
 

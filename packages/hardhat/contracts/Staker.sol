@@ -3,13 +3,17 @@ pragma solidity 0.8.4;
 
 import "hardhat/console.sol";
 import "./ExampleExternalContract.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+
 
 contract Staker {
 
   ExampleExternalContract public exampleExternalContract;
   uint256 public constant threshold = 1 ether;
   mapping (address => uint256) balances;
-  uint256 public deadline = block.timestamp + 30 seconds;
+  uint256 public deadline = block.timestamp + 30 minutes;
+ 
+
 
   modifier deadlineReached( bool requireReached ) {
     uint256 timeRemaining = timeLeft();
@@ -36,11 +40,7 @@ contract Staker {
       exampleExternalContract = ExampleExternalContract(exampleExternalContractAddress);
   }
 
-  function stake() public payable deadlineReached(false) stakeNotCompleted   returns (bool) {
-    uint256 start = block.timestamp;
-    deadline = deadline + 1 minutes;
-
-
+  function stake() public payable deadlineReached(false) stakeNotCompleted  returns (bool) {
     balances[msg.sender] = msg.value;
 
     emit Stake(msg.sender, msg.value);
@@ -81,9 +81,10 @@ contract Staker {
 
   // Function to allow the sender to withdraw all Ether from this contract.
   function withdraw() public deadlineReached(true) stakeNotCompleted {
-      // get the amount of Ether stored in this contract
-      require((contractAmt() >= threshold), 'Threshold has been reached, funds cannot be withdrawn');
+      // get the amount of Ether stored in this contract from the current wallet
       uint256 amount = balances[msg.sender];
+      require(amount > 0, "You don't have balance to withdraw");
+      
       require(amount > 0, "No ETH in from user");
       balances[msg.sender] = 0;
 
