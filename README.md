@@ -4,7 +4,7 @@
 
 ## 🚩 Example 0: 🎟 Simple NFT Example 🤓
 
-Allows you to mint NFT's of auto generated pictures onto whateven Etherium netwokr you'd like. 
+Allows you to mint NFT's of auto generated pictures onto whatever Etherium network you'd like. 
 
 https://github.com/ChariotDigital/web3-portfolio/tree/challenge-0-simple-nft
 
@@ -20,7 +20,11 @@ https://github.com/ChariotDigital/web3-portfolio/tree/challenge-1-decentralized-
 
 ## 🚩 Example 2: 🏵 Token Vendor 🤖
 
-🤖 Smart contracts are kind of like "always on" vending machines that anyone can access. Let's make a decentralized, digital currency. Then, let's build an unstoppable vending machine that will buy and sell the currency. We'll learn about the "approve" pattern for ERC20s and how contract to contract interactions work.
+dApp that deploys 2 smart conracts
+-  a customer ERC20 Token called Prismm (PRSM) 
+-  a "Vendor"contract that will buy and sell PRSM. 
+
+this app Implements the "approve" pattern for ERC20s.
 
 https://github.com/ChariotDigital/web3-portfolio/tree/challenge-2-token-vendor
 
