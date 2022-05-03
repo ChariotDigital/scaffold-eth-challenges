@@ -26,8 +26,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     ethers.utils.parseEther("1000")
   );
 
-  console.log("\n    ✅ confirming...\n");
-  await sleep(5000); // wait 5 seconds for transaction to propagate
+  // console.log("\n    ✅ confirming...\n");
+  // await sleep(5000); // wait 5 seconds for transaction to propagate
 
   
   console.log("\n 🤹  Sending ownership to frontend address...\n")
